@@ -1,0 +1,17 @@
+BasedOnStyle: LLVM
+Language: Cpp
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+IndentCaseLabels: false
+IndentCaseBlocks: false
+NamespaceIndentation: None
+IndentPPDirectives: AfterHash
+IndentExternBlock: NoIndent
+IndentGotoLabels: false
+IndentWrappedFunctionNames: false
+
+# Line breaks and wrapping
+ColumnLimit: 100

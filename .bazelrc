@@ -1,0 +1,18 @@
+# .bazelrc
+build --cxxopt=-std=c++23
+build --cxxopt=-stdlib=libc++
+build --linkopt=-stdlib=libc++
+build --action_env=CC=clang
+build --action_env=CXX=clang++
+
+# Debug symbols
+build --compilation_mode=dbg
+build --cxxopt=-g
+build --copt=-g
+build --strip=never
+build --linkopt=-g
+build --spawn_strategy=local
+build --features=oso_prefix_is_pwd
+build --apple_generate_dsym
+
+common --enable_workspace

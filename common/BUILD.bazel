@@ -1,0 +1,6 @@
+cc_library(
+    name = "util",
+    srcs = ["util.cc"],
+    hdrs = ["util.h"],
+    visibility = ["//visibility:public"],
+)

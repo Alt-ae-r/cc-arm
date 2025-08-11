@@ -1,0 +1,4 @@
+alias(
+    name = "ccarm",
+    actual = "//cli:ccarm",
+)

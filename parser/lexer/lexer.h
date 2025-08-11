@@ -1,0 +1,9 @@
+#pragma once
+
+#include <vector>
+
+#include "../common/token.h"
+
+namespace lexer {
+    std::vector<Token> tokenizeProgram(std::string &body /* program body */);
+}
