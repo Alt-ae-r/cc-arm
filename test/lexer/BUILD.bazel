@@ -3,7 +3,10 @@ load("@rules_cc//cc:defs.bzl", "cc_test")
 cc_test(
     name = "lexer_test", 
     srcs = ["lexer_test.cc"],
+    data = glob(["test_*/**"]),
     deps = [
+        "//common:util",
         "//parser/lexer",
+        "//test/common:util",
     ],
 )

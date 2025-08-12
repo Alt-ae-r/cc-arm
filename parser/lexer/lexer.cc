@@ -10,7 +10,7 @@ namespace lexer {
 
 static const auto KEYWORD_NAMES = {std::string("return"), std::string("int")};
 
-std::optional<Token> parseKeyword(std::string &body, size_t &index) {
+std::optional<Token> parseKeyword(const std::string &body, size_t &index) {
     for (auto keyword : KEYWORD_NAMES) {
         if (util::matchStr(body, keyword, index)) {
             index += keyword.size();
@@ -20,7 +20,7 @@ std::optional<Token> parseKeyword(std::string &body, size_t &index) {
     return std::nullopt;
 }
 
-std::string parseMatchingChars(std::string &body, size_t &index, std::function<bool(char)> eval) {
+std::string parseMatchingChars(const std::string &body, size_t &index, std::function<bool(char)> eval) {
     auto startIndex = index;
     while (index < body.size() && eval(body[index])) {
         index++;
@@ -32,7 +32,7 @@ bool isValidIdentifierChar(char c) {
     return (c >= 'A' && c <= 'z') || (c >= '0' && c <= '9') || c == '_';
 }
 
-std::optional<Token> parseIdentifier(std::string &body, size_t &index) {
+std::optional<Token> parseIdentifier(const std::string &body, size_t &index) {
     if (char c = body[index]; (c < 'A' || c > 'z') && c != '_') {
         return std::nullopt;
     }
@@ -41,7 +41,7 @@ std::optional<Token> parseIdentifier(std::string &body, size_t &index) {
     return Token{TokenKind::IDENTIFIER, id};
 }
 
-bool parseWhitespace(std::string &body, size_t &index) {
+bool parseWhitespace(const std::string &body, size_t &index) {
     return parseMatchingChars(body, index, [](char c) {
                return c == '\t' || c == '\n' || c == ' ';
            }).size() > 0;
@@ -69,7 +69,7 @@ std::optional<Token> classifySingleCharToken(char c) {
 }
 
 // parse any token guaranteed to be only a single char
-std::optional<Token> parseSingleCharToken(std::string &body, size_t &index) {
+std::optional<Token> parseSingleCharToken(const std::string &body, size_t &index) {
     auto c = body[index];
     auto output = classifySingleCharToken(c);
 
@@ -81,13 +81,13 @@ std::optional<Token> parseSingleCharToken(std::string &body, size_t &index) {
 
 bool isNumeric(char c) { return '0' <= c && c <= '9'; }
 
-std::optional<Token> parseNumber(std::string &body, size_t &index) {
+std::optional<Token> parseNumber(const std::string &body, size_t &index) {
     auto literal = parseMatchingChars(body, index, isNumeric);
     assert(literal.size() > 0);
     return Token{TokenKind::LITERAL, literal};
 }
 
-std::optional<Token> parseLiteral(std::string &body, size_t &index) {
+std::optional<Token> parseLiteral(const std::string &body, size_t &index) {
     if (isNumeric(body[index])) {
         auto token = parseNumber(body, index);
         assert(token &&
@@ -97,7 +97,7 @@ std::optional<Token> parseLiteral(std::string &body, size_t &index) {
     return std::nullopt;
 }
 
-std::vector<Token> tokenizeProgram(std::string &body /* program body */) {
+std::vector<Token> tokenizeProgram(const std::string &body /* program body */) {
     auto tokens = std::vector<Token>{};
     size_t index = 0;
     while (index < body.size()) {

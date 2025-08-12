@@ -1,9 +1,9 @@
 # .bazelrc
 build --cxxopt=-std=c++23
-build --cxxopt=-stdlib=libc++
 build --linkopt=-stdlib=libc++
 build --action_env=CC=clang
 build --action_env=CXX=clang++
+build --cxxopt=-mmacosx-version-min=10.15
 
 # Debug symbols
 build --compilation_mode=dbg

@@ -5,7 +5,7 @@
 
 namespace util {
 
-bool matchStr(std::string &body, std::string searchStr, size_t index) {
+bool matchStr(const std::string &body, std::string searchStr, size_t index) {
     if (body.size() - index < searchStr.size()) {
         return false;
     }
@@ -21,4 +21,15 @@ std::string readEntireFile(const std::string &filename) {
     buffer << file.rdbuf();
     return buffer.str();
 }
+
+std::vector<std::string> splitStr(const std::string& str, char delimiter) {
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(str);
+    while (std::getline(tokenStream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
 } // namespace util
